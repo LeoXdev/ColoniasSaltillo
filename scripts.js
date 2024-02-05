@@ -1,7 +1,7 @@
-// map permite que todas las funciones tengan acceso a los identificadores de la API de Bing Maps.
-var map;
+"use strict";
+// GetMap se llama después de que el script que contiene la API de Bing Maps carga por completo.
 function GetMap() {
-    map = new Microsoft.Maps.Map('#map', {
+    var map = new Microsoft.Maps.Map('#map', {
         center: new Microsoft.Maps.Location(25.423215, -101.002852),
         zoom: 14
     });
@@ -67,7 +67,6 @@ function GetMap() {
 }
 // funcNuevaColonia recibe un arreglo de longitud par con coordenadas vértices
 // que servirán para crear un nuevo Polygon que cubrirá una colonia.
-// El retorno es un arreglo de coordenadas representadas con objetos '{lat, lng}'.
 function funcNuevaColonia(coordenadas) {
     // El siguiente error aparece si se pasa a la función una cantidad no par de params
     if (!funcEsPar(coordenadas.length)) return console.error("se ingresó una cantidad no valida de coordenadas");
@@ -84,11 +83,10 @@ function funcNuevaColonia(coordenadas) {
 // un booleano que debe indicar si la colonia es fifi con true y falso caso contrario.
 function funcCrearPolygon(coordsColonia, fifi) {
     let color = fifi ? 'rgba(0, 0, 255, 0.5)' : 'rgba(255, 0, 0, 0.5)';
-    let colorBorde = fifi ? 'blue' : 'red';
 
     return new Microsoft.Maps.Polygon(coordsColonia, {
         fillColor: color,
-        strokeColor: colorBorde,
+        strokeColor: color,
         strokeThickness: 2
     });
 }
