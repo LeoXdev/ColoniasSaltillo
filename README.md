@@ -9,5 +9,3 @@ Mapa web para consultar que colonias de *Saltillo* son fifis o humildes, represe
 - Crear un sidebar con secciones para cada estado.
 - Añadir un botón que habilite o deshabilite la renderización de polígonos
 sobre colonias.
-- Que se habilite o desabilite la renderización de polígonos sobre colonias al
-arrastrar el mapa?
