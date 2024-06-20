@@ -216,9 +216,6 @@ function peticionTraerJson(url) {
     fetch(url)
         .then(res => res.json())
         .then((out) => {
-            // if ('error' in out) {
-
-            // }
             console.log('Output: ', out);
             // recorrer arreglo colonias, cada entrada de este arreglo contiene la info necesaria
             // para renderizar cada colonia
