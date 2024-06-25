@@ -1,15 +1,5 @@
 "use strict";
 
-// TODO:
-// - Añadir una sidebar que cuando se abra muestre un listado de ¿País? -> Estado -> Ciudad,
-//   al darle click, la pantalla enfocará a la ciudad pulsada y coloreará las colonias fifis y humildes,
-//   a la vez que descoloreará las colonias de otras ciudades.
-//   /~Triggers para activar desactivar ciertas colonias sin estar limitadas a una única opcion (por
-//   ejemplo para cubrir un área metropolitana) o en base a cierta condición.
-// - Colorear todas las colonias :)
-// - Poner unas estadísticas que contengan el porcentaje/ratio de colonias fifis y humildes, quizá
-//   también muestren la población en número bajo dichas condiciones.
-// Ruta relativa al archivo JSON
 const jsonsColonias = [
     'https://leoxdev.github.io/ColoniasSaltillo/coords/mexico/coahuila/saltillo.json',
     'https://leoxdev.github.io/ColoniasSaltillo/coords/mexico/san-luis-potosi/san-luis-potosi.json',
