@@ -23,7 +23,7 @@ function GetMap() {
         disableStreetsideAutoCoverage: true,
         enableClickableLogo: false,
         enableInertia: false,
-        maxZoom: 14,
+        maxZoom: 18,
     });
 
     // cargar todas las colonias de la ciudad seleccionada (default saltillo)
@@ -55,8 +55,21 @@ function GetMap() {
     cargarColonias(jsonsColonias);
     console.log(coloniasPorciudad.get('saltillo'));
 
-    // La función funcAñadirPolygonsColonias queda en desuso con esta actualización pero
-    // puede que se use después cuando se implementen otras "features".
+    // Descomentar cuando se quiera hacer una prueba para una colonia sin hacer push al
+    // repositorio de github, solo cambiar las coordenadas dentro de la funcNuevaColonia.
+    // map.entities.push(funcCrearPolygon(funcNuevaColonia([
+    //     22.122835815, -100.951804149,
+    //     22.12001158, -100.948960049,
+    //     22.119143914, -100.951003798,
+    //     22.118796888, -100.95442696,
+    //     22.119017776, -100.955465833,
+    //     22.120579706, -100.957526562,
+    //     22.12072169, -100.957833117,
+    //     22.122078532, -100.958054533,
+    //     22.122252093, -100.957628763,
+    //     22.122536072, -100.954086309,
+    //     22.122835838, -100.952962241
+    // ]), false));
 }
 // funcNuevaColonia recibe un arreglo de longitud par con coordenadas vértices
 // que servirán para crear un nuevo Polygon que cubrirá una colonia.
