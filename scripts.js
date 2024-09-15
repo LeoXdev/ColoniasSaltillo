@@ -5,6 +5,15 @@ const jsonsColonias = [
     'https://leoxdev.github.io/ColoniasSaltillo/coords/mexico/san-luis-potosi/san-luis-potosi.json',
     //'https://leoxdev.github.io/ColoniasSaltillo/coords/mexico/cdmx.json',
 ];
+// Cuando se quieran hacer pruebas con JSON locales, encender un
+// localhost que sirva los JSON y usar este arreglo.
+// Esto permite checar actualizaciones de múltiples colonias en lugar de una por una
+// que era como se hacía con el código comentado que había antes.
+/* const jsonsColonias = [
+    'http://localhost:8080/mexico/coahuila/saltillo.json',
+    'http://localhost:8080/mexico/san-luis-potosi/san-luis-potosi.json',
+    //'.../cdmx.json',
+]; */
 
 // map se tornó una variable global para que cualquier función pueda acceder a los identificadores dentro.
 let map;
@@ -46,7 +55,7 @@ function GetMap() {
 
                     coloniasPorciudad.get(ciudad).push(el);
                     const polygon = funcCrearPolygon(funcNuevaColonia(el.coordenadas),
-                        el.fifi);
+                        el.fifi, el.brechas);
                     map.entities.push(polygon);
                 }
             });
@@ -54,22 +63,6 @@ function GetMap() {
     }
     cargarColonias(jsonsColonias);
     console.log(coloniasPorciudad.get('saltillo'));
-
-    // Descomentar cuando se quiera hacer una prueba para una colonia sin hacer push al
-    // repositorio de github, solo cambiar las coordenadas dentro de la funcNuevaColonia.
-    // map.entities.push(funcCrearPolygon(funcNuevaColonia([
-    //     22.122835815, -100.951804149,
-    //     22.12001158, -100.948960049,
-    //     22.119143914, -100.951003798,
-    //     22.118796888, -100.95442696,
-    //     22.119017776, -100.955465833,
-    //     22.120579706, -100.957526562,
-    //     22.12072169, -100.957833117,
-    //     22.122078532, -100.958054533,
-    //     22.122252093, -100.957628763,
-    //     22.122536072, -100.954086309,
-    //     22.122835838, -100.952962241
-    // ]), false));
 }
 // funcNuevaColonia recibe un arreglo de longitud par con coordenadas vértices
 // que servirán para crear un nuevo Polygon que cubrirá una colonia.
@@ -87,8 +80,16 @@ function funcNuevaColonia(coordenadas) {
 }
 // funcCrearPolygon recibe un arreglo de coordenadas (de una colonia) junto a
 // un booleano que debe indicar si la colonia es fifi con true y falso caso contrario.
-function funcCrearPolygon(coordsColonia, fifi) {
+function funcCrearPolygon(coordsColonia, fifi, brechas) {
     let color = fifi ? 'rgba(0, 0, 255, 0.5)' : 'rgba(255, 0, 0, 0.5)';
+
+    // Si la colonia no tiene ajugeros en sus límites.
+    if (!brechas)
+        return new Microsoft.Maps.Polygon(coordsColonia, {
+            fillColor: color,
+            strokeColor: color,
+            strokeThickness: 2
+        });
 
     return new Microsoft.Maps.Polygon(coordsColonia, {
         fillColor: color,
@@ -110,34 +111,3 @@ const funcPeticionJsonCiudad = async (url) => {
     const response = await fetch(url);
     return await response.json();
 }
-
-
-// zoomOut when pressing Z
-function zoomIn() {
-    map.setView({
-        zoom: ++map._options.zoom
-    })
-}
-// zoomOut when pressing X
-function zoomOut() {
-    map.setView({
-        zoom: --map._options.zoom
-    })
-}
-
-// Zoom in/out con z,x
-document.addEventListener('keydown', function (event) {
-    // Check if the pressed key is the one you're interested in (e.g., 'Enter' key with keyCode 13)
-    if (event.key === 'z') {
-        zoomIn();
-        return;
-    }
-    if (event.key === 'x') {
-        zoomOut();
-        return;
-    }
-    if (event.key === 'c') {
-        console.log(map._options.zoom);
-        return;
-    }
-});
